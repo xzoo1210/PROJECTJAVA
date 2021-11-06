@@ -32,9 +32,11 @@ public class OrderControl extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            request.setCharacterEncoding("utf-8");
+            response.setContentType("text/html; charset=UTF-8");
+            String output = "";
+             out.println("<a style = 'background-color:green' href = '/project_prj321_HE141231/Home'> Home</a>");
             HttpSession session = request.getSession();
             if (session.getAttribute("customer") == null) {
                 String mess = "";
@@ -51,11 +53,14 @@ public class OrderControl extends HttpServlet {
                 String name = request.getParameter("fullName").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
-                cd.addInforUser(cd.getLastInforUserID()+1, c.getId(), name, address, phone);
-
+                //               cd.addInforUser(cd.getLastInforUserID()+1, c.getId(), name, address, phone);
+                out.println("<div style='border: black solid 2px'><p> Username :" + name + "</p>");
+                out.println("<p> Address :" + address + "</p>");
+                out.println("<p> Phone number :" + phone + "</p>");
+                out.println("</div><br><br>");
                 // add order
                 orderDAO order = new orderDAO();
-                int orderID = order.getLastOrderID()+1;
+                int orderID = order.getLastOrderID() + 1;
                 float finalPrice = Float.parseFloat(session.getAttribute("finalPrice").toString().trim());
                 order.addOrder(orderID, c.getId(), finalPrice);
                 Cookie arr[] = request.getCookies();
@@ -65,7 +70,9 @@ public class OrderControl extends HttpServlet {
                     if (o.getName().equals("id")) {
                         String txt[] = o.getValue().split(",");
                         for (String s : txt) {
-                            list.add(dao.getProductByID(s));
+                            Product p = dao.getProductByID(s);
+                            p.setAmount(1);
+                            list.add(p);
                         }
                     }
                 }
@@ -81,15 +88,43 @@ public class OrderControl extends HttpServlet {
                         }
                     }
                 }
+               
+                out.println("<table style = 'border: blue solid 20px;width:100%;'>");
+                out.println("<tr style ='border: black solid 2px' >");
+//            out.println("<td style ='border: orange solid 2px'>stt</td>");
+                out.println(""
+                        + "<td style ='border: orange solid 2px'>Name</td>"
+                        + "<td style ='border: orange solid 2px'>price</td>"
+                        + "<td style ='border: orange solid 2px'>amount</td>"
+                        + "<td style ='border: orange solid 2px'>total price</td>");
+                out.println("</tr>");
+                HttpSession ses = request.getSession();
+
                 for (Product p : list) {
-                    order.addOrderDetail(order.getLastOrderDetailID()+1, orderID, p.getId(), p.getAmount());
+                    out.println("<tr>");
+//                    out.println("<td style ='border: blue solid 1px'> <img style='width: 20%'  src=" + p.getImage() + "></td>");
+                    out.println("<td style ='border: blue solid 1px'>" + p.getName() + "</td>");
+                    out.println("<td style ='border: blue solid 1px'>" + p.getPrice() + "</td>");
+                    out.println("<td style ='border: blue solid 1px'>" + p.getAmount() + "</td>");
+                    out.println("<td style ='border: blue solid 1px'>" + p.getAmount() * p.getPrice() + "</td>");
+
+                    //order.addOrderDetail(order.getLastOrderDetailID()+1, orderID, p.getId(), p.getAmount());
+                    out.println("</tr>");
                 }
+                out.println("<p> total price :" + ses.getAttribute("total") + "</p>");
+                out.println("<p> discount:" + ses.getAttribute("discount") + "</p>");
+                out.println("<p> final price :" + ses.getAttribute("finalPrice") + "</p>");
+                
                 for (Cookie o : arr) {
-                    o.setMaxAge(0);
-                    response.addCookie(o);
+                    if (o.getName().equals("id")) {
+                        o.setMaxAge(0);
+                        response.addCookie(o);
+                    }
+
                 }
                 // insert to DB 
-                request.getRequestDispatcher("HomePage.jsp").forward(request, response);
+
+               // request.getRequestDispatcher("HomePage.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("login_register.jsp").forward(request, response);
             }

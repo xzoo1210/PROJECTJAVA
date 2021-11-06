@@ -66,7 +66,6 @@ public class ShowCartControl extends HttpServlet {
         for (voucher o : v) {
             if(o.getCode().equals(voucher)){
                 discount=o.getDiscount();
-                System.out.println();
             }
         }
         
