@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,8 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            DAO d =new DAO();
+            ProductDAO d = new ProductDAOImpl();
+            
             List<Product> list=  d.getAll();
             request.setAttribute("list", list);
             request.getRequestDispatcher("HomePage.jsp").forward(request, response);

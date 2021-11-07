@@ -5,8 +5,10 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
 import dao.VoucherDAO;
+import dao.impl.ProductDAOImpl;
+import dao.impl.VoucherDAOImpl;
 import entity.Product;
 import entity.voucher;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class ShowCartControl extends HttpServlet {
         Cookie arr[] = request.getCookies();
         PrintWriter out = response.getWriter();
         List<Product> list = new ArrayList<>();
-        DAO dao = new DAO();
+        ProductDAO dao = new ProductDAOImpl();
         for (Cookie o : arr) {
             if (o.getName().equals("id")) {
                 String txt[] = o.getValue().split(",");
@@ -61,7 +63,7 @@ public class ShowCartControl extends HttpServlet {
         // get discount
         int discount =0;
         String voucher= request.getParameter("voucher");
-        VoucherDAO a = new VoucherDAO();
+        VoucherDAO a = new VoucherDAOImpl();
         List<voucher> v = a.getAll();
         for (voucher o : v) {
             if(o.getCode().equals(voucher)){

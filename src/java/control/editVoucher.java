@@ -5,8 +5,9 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
 import dao.VoucherDAO;
+import dao.impl.VoucherDAOImpl;
 import entity.Customer;
 import entity.Product;
 import entity.voucher;
@@ -83,7 +84,7 @@ public class editVoucher extends HttpServlet {
                 request.setAttribute("mess", mess);
                 request.getRequestDispatcher("login_register.jsp").forward(request, response);
             } else {
-                VoucherDAO cdb = new VoucherDAO();
+                VoucherDAO cdb = new VoucherDAOImpl();
                 String id = session.getAttribute("Vid").toString();
                 int Vid = Integer.parseInt(id);
                 String code = request.getParameter("code").trim();

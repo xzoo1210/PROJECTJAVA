@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="project_prj321_HE141231" default="default" basedir=".">
-    <description>Builds, tests, and runs the project project_prj321_HE141231.</description>
+<project name="projectLaptop" default="default" basedir=".">
+    <description>Builds, tests, and runs the project projectLaptop.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

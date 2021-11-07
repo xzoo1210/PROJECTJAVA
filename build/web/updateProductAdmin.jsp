@@ -4,8 +4,10 @@
     Author     : Dell Inc
 --%>
 
+<%@page import="dao.ProductDAO"%>
+<%@page import="dao.impl.ProductDAOImpl"%>
 <%@page import="entity.Product"%>
-<%@page import="dao.DAO"%>
+<%@page import="dao.impl.ProductDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +16,7 @@
         <title>JSP Page</title>
         <link href="css/cssAdd.css" rel="stylesheet" type="text/css"/>
     </head>
-    <%DAO cdb = new DAO();
+    <%ProductDAO cdb = new ProductDAOImpl();
         String id = (String) request.getParameter("id");
         Product c = (Product) cdb.getProductByID(id);%>
     <body>

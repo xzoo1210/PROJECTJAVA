@@ -1,5 +1,5 @@
 
-<jsp:useBean id="p" class="dao.DAO" scope="request"></jsp:useBean>
+<jsp:useBean id="p" class="dao.impl.ProductDAOImpl" scope="request"></jsp:useBean>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="col-sm-3" style="margin-top: 10px;">

@@ -7,7 +7,7 @@
 <%@page import="dao.CustomerDAO"%>
 <%@page import="entity.Customer"%>
 <%@page import="entity.Product"%>
-<%@page import="dao.DAO"%>
+<%@page import="dao.impl.ProductDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

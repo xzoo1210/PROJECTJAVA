@@ -6,6 +6,7 @@
 package control;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,7 +68,7 @@ public class login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         Cookie[] cookies = request.getCookies();
-        CustomerDAO dao = new CustomerDAO();
+        CustomerDAO dao = new CustomerDAOImpl();
         String username = "";
         String password = "";
         boolean check = false;
@@ -116,7 +117,7 @@ public class login extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("userName_login");
         String password = request.getParameter("password_login");
-        CustomerDAO cudb = new CustomerDAO();
+        CustomerDAO cudb = new CustomerDAOImpl();
         Customer c = (Customer) cudb.checkLogin(username, password);
         boolean check = true;
         if (c != null) {

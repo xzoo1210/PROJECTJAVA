@@ -1,132 +1,28 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dao;
 
-import entity.Customer;
-import entity.Product;
 import entity.voucher;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class VoucherDAO extends BaseDAO {
+/**
+ *
+ * @author Admin
+ */
+public interface VoucherDAO {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+    public int getLastVoucherID();
 
-    public int getLastVoucherID() {
-        String sql = "SELECT TOP 1 CodeID\n"
-                + "FROM HE141231_DUPI_Vouchers\n"
-                + "ORDER BY CodeID DESC";
-        try {
-            PreparedStatement stm = connection.prepareCall(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
+    public int addVoucher(int codeID, int userID, String code, int existTime, int discount);
 
-            }
+    public List<voucher> getAll();
 
-        } catch (Exception e) {
-            System.out.println("loi " + e.getMessage());
-        }
-        return 0;
-    }
+    public int DeleteVoucher(String id);
 
-        public int addVoucher(int codeID, int userID,String code, int existTime, int discount) {
-        String sql = "INSERT INTO [SE1435_PRJ321_DUPIHE141231].[dbo].[HE141231_DUPI_Vouchers] (CodeID,UserID,code,ExistTime,discount) VALUES (?,?,?,?,?)";
-        try {
+    public voucher getVoucherByID(String id);
 
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1,codeID );
-            stm.setInt(2, userID);
-            stm.setString(3,code );
-            stm.setInt(4, existTime);
-            stm.setInt(5, discount);
-            return stm.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("loi " + ex.getMessage());
-        }
-        return 0;
-    }
-         public List<voucher> getAll() {
-        String query = "select * from HE141231_DUPI_Vouchers";
-        List<voucher> list = new ArrayList<>();
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new voucher(rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getInt(4), rs.getInt(5)));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-public int DeleteVoucher(String id) {
-        String sql = "delete HE141231_DUPI_Vouchers where CodeID =?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, id);
-            return ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return 0;
-    }
-public voucher getVoucherByID(String id) {
-        String sql = "select * from HE141231_DUPI_Vouchers where CodeID=?";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                voucher p = new voucher();
-                p.setCodeID(rs.getInt(1));
-                p.setUserID(rs.getInt(2));
-                p.setCode(rs.getString(3));
-                p.setExistTime(rs.getInt(4));
-                p.setDiscount(rs.getInt(5));
-                return p;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-     public int updateVoucher(voucher p) {
-
-        String sql = "UPDATE [dbo].[HE141231_DUPI_Vouchers]\n"
-                + "   SET [UserID] =  ?,\n"
-                + "      [Code] = ?,\n"
-                + "      [ExistTime] = ?,\n"
-                + "      [discount] = ?\n"
-                + " WHERE [CodeID]= ?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(5, p.getCodeID());
-            st.setInt(1, p.getUserID());
-            st.setString(2, p.getCode());
-            st.setInt(3, p.getExistTime());
-            st.setInt(4, p.getDiscount());
-            
-            return st.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(" loi update"+e.getMessage());
-        }
-        return 0;
-    }
-    public static void main(String[] args) {
-        VoucherDAO a = new VoucherDAO();
-        List<voucher> v = a.getAll();
-        for (voucher object : v) {
-            System.out.println(object);
-        }
-//        System.out.println(a.addOrder(1, 1, 500));
-//        System.out.println(a.addOrderDetail(1, 1, 1, 5));
-    }
+    public int updateVoucher(voucher p);
 }

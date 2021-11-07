@@ -6,6 +6,7 @@
 package control;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -75,7 +76,7 @@ public class register extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        CustomerDAO userDB = new CustomerDAO();
+        CustomerDAO userDB = new CustomerDAOImpl();
         String userName = request.getParameter("userName_register");
         String password = request.getParameter("userPassword_register");
         String rePassword = request.getParameter("reUserPassword_register");

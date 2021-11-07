@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +38,7 @@ public class filterCate extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String cId= request.getParameter("cid");
-            DAO d =new DAO();
+            ProductDAO d =new ProductDAOImpl();
             List<Product> list=  d.getProductByCateID(cId);
             request.setAttribute("list", list);
             request.getRequestDispatcher("HomePage.jsp").forward(request, response);

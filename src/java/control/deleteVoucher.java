@@ -5,8 +5,9 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
 import dao.VoucherDAO;
+import dao.impl.VoucherDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,7 +55,7 @@ public class deleteVoucher extends HttpServlet {
                 } else {
                     String sid = request.getParameter("Vid");
                     int Vid = Integer.parseInt(sid);
-                    VoucherDAO cdb = new VoucherDAO();
+                    VoucherDAO cdb = new VoucherDAOImpl();
                     cdb.DeleteVoucher(sid);
                     request.getRequestDispatcher("manageVouchers.jsp").forward(request, response);
 //                    response.sendRedirect("manageVouchers.jsp");

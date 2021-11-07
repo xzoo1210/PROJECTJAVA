@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.ProductDAO;
 import entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +9,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAO extends BaseDAO {
+public class ProductDAOImpl extends BaseDAOImpl implements ProductDAO {
 
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    @Override
     public List<Product> getAll() {
-        String query = "select * from HE141231_DUPI_Product";
+        String query = "select * from [Product]";
         List<Product> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -31,23 +33,27 @@ public class DAO extends BaseDAO {
         }
         return null;
     }
-        public List<Product> getAllCate() {
-        String query = "select * from HE141231_DUPI_Category";
+
+    @Override
+    public List<Product> getAllCate() {
+        String query = "select * from [Category]";
         List<Product> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getInt(1),rs.getString(2)));
+                list.add(new Product(rs.getInt(1), rs.getString(2)));
             }
             return list;
         } catch (Exception e) {
         }
         return null;
     }
+
+    @Override
     public int getLastID() {
         String sql = "SELECT TOP 1 productid\n"
-                + "FROM HE141231_DUPI_Product\n"
+                + "FROM [Product]\n"
                 + "ORDER BY productid DESC";
         try {
             PreparedStatement stm = connection.prepareCall(sql);
@@ -63,14 +69,15 @@ public class DAO extends BaseDAO {
         return 0;
     }
 
+    @Override
     public List<Product> getProductByCateID(String txt) {
-        String query = "select * from HE141231_DUPI_Product where cateID= ?";
+        String query = "select * from [Product] where cateID= ?";
         List<Product> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, txt);
             rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 list.add(new Product(rs.getInt(1),
                         rs.getString(2),
@@ -83,8 +90,9 @@ public class DAO extends BaseDAO {
         return null;
     }
 
+    @Override
     public List<Product> getProductByPrice(String txt) {
-        String query = "select * from HE141231_DUPI_Product where price= ?";
+        String query = "select * from [Product] where price= ?";
         List<Product> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -101,8 +109,9 @@ public class DAO extends BaseDAO {
         return null;
     }
 
+    @Override
     public ArrayList<Product> getProductByName(String txt) {
-        String query = "select * from HE141231_DUPI_Product where name LIKE '%'+?+'%'";
+        String query = "select * from [Product] where name LIKE '%'+?+'%'";
         ArrayList<Product> list = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -119,8 +128,9 @@ public class DAO extends BaseDAO {
         return list;
     }
 
+    @Override
     public int DeleteProduct(String id) {
-        String query = "delete HE141231_DUPI_Product where productid =?";
+        String query = "delete [Product] where productid =?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, id);
@@ -130,8 +140,9 @@ public class DAO extends BaseDAO {
         return 0;
     }
 
+    @Override
     public Product getProductByID(String id) {
-        String sql = "select * from HE141231_DUPI_Product where productid=?";
+        String sql = "select * from [Product] where productid=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -153,8 +164,9 @@ public class DAO extends BaseDAO {
         return null;
     }
 
+    @Override
     public int addProduct(Product p) {
-        String sql = "INSERT INTO [dbo].[HE141231_DUPI_Product]\n"
+        String sql = "INSERT INTO [dbo].[Product]\n"
                 + "           ([productid]\n"
                 + "           ,[name]\n"
                 + "           ,[image]\n"
@@ -183,9 +195,10 @@ public class DAO extends BaseDAO {
         return 0;
     }
 
+    @Override
     public int updateProduct(Product p) {
 
-        String sql = "UPDATE [dbo].[HE141231_DUPI_Product]\n"
+        String sql = "UPDATE [dbo].[Product]\n"
                 + "   SET [name] =  ?,\n"
                 + "      [image] = ?,\n"
                 + "      [price] = ?, \n"
@@ -214,12 +227,12 @@ public class DAO extends BaseDAO {
     }
 
     public static void main(String[] args) {
-        DAO a = new DAO();
+        ProductDAOImpl a = new ProductDAOImpl();
 
-        System.out.println(a.updateProduct(new Product(5, "Laptop MSI Prestige 15 A10SC-222VN ",
-                "https://hanoicomputercdn.com/media/product/48771_msi_prestige_15_a10sc__6_.jpg",
-                300, 1, "giá")));
-        List<Product> li = a.getProductByCateID(2+"");
+//        System.out.println(a.updateProduct(new Product(5, "Laptop MSI Prestige 15 A10SC-222VN ",
+//                "https://hanoicomputercdn.com/media/product/48771_msi_prestige_15_a10sc__6_.jpg",
+//                300, 1, "giá")));
+        List<Product> li = a.getAll();
         System.out.println(li.get(1).getDetail());
     }
 }

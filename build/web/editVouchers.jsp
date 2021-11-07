@@ -4,12 +4,13 @@
     Author     : Dell Inc
 --%>
 
+<%@page import="dao.impl.VoucherDAOImpl"%>
 <%@page import="entity.voucher"%>
 <%@page import="dao.VoucherDAO"%>
 <%@page import="dao.CustomerDAO"%>
 <%@page import="entity.Customer"%>
 <%@page import="entity.Product"%>
-<%@page import="dao.DAO"%>
+<%@page import="dao.impl.ProductDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
         <title>JSP Page</title>
         <link href="css/cssAdd.css" rel="stylesheet" type="text/css"/>
     </head>
-    <%VoucherDAO cdb = new VoucherDAO();
+    <%VoucherDAO cdb = new VoucherDAOImpl();
         String id = (String) request.getParameter("Vid");
         HttpSession ses = request.getSession();
         ses.setAttribute("Vid", id);

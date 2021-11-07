@@ -6,6 +6,7 @@
 package control;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,7 +69,7 @@ public class changePass extends HttpServlet {
         String newpass = request.getParameter("newpass");
         String repass = request.getParameter("repass");
         
-        CustomerDAO cdb = new CustomerDAO();
+        CustomerDAO cdb = new CustomerDAOImpl();
         String rs="";
         if (cdb.checkLogin(name, pass)!=null){
             Customer p= cdb.checkLogin(name, pass);

@@ -6,6 +6,7 @@
 package control;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,7 +84,7 @@ public class editUser extends HttpServlet {
                 String pass = request.getParameter("pass");
                 String authority = request.getParameter("authority");
                 int AuthorityInt = Integer.parseInt(authority);
-                CustomerDAO cdb = new CustomerDAO();
+                CustomerDAO cdb = new CustomerDAOImpl();
                 cdb.updateUser(new Customer(id, name, pass, AuthorityInt));
                 response.sendRedirect("manageAccount.jsp");
             }

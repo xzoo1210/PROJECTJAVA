@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Customer;
 import entity.Product;
 import java.io.IOException;
@@ -91,7 +92,7 @@ public class updateProduct extends HttpServlet {
                 String cate = request.getParameter("CateID");
                 int cateID = Integer.parseInt(cate);
                 String detail = request.getParameter("detail");
-                DAO cdb = new DAO();
+                ProductDAO cdb = new ProductDAOImpl();
                 Product pd = new Product();
                 pd.setId(id);
                 pd.setName(name);

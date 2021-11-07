@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Customer;
 import entity.Product;
 import java.io.IOException;
@@ -81,7 +82,7 @@ public class addProductAdmin extends HttpServlet {
             request.getRequestDispatcher("login_register.jsp").forward(request, response);
             }
             else{
-             DAO cdb = new DAO();
+             ProductDAO cdb = new ProductDAOImpl();
             String name = request.getParameter("name").trim();
             int id = cdb.getLastID();
             System.out.println(" id ="+id);

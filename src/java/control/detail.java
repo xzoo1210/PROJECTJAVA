@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +38,7 @@ public class detail extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String sid = request.getParameter("id");
             int id = Integer.parseInt(sid);
-            DAO cdb = new DAO();
+            ProductDAO cdb = new ProductDAOImpl();
             Product pd = new Product();
             Product c = cdb.getProductByID(sid);
             request.setAttribute("detail", c);

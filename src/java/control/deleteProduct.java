@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Customer;
 import entity.Product;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class deleteProduct extends HttpServlet {
                 } else {
                     String sid = request.getParameter("id");
                     int id = Integer.parseInt(sid);
-                    DAO cdb = new DAO();
+                    ProductDAO cdb = new ProductDAOImpl();
                     cdb.DeleteProduct(sid);
                     response.sendRedirect("listAdmin.jsp");
                 }

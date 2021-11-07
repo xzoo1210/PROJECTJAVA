@@ -17,7 +17,7 @@
         <link href="style.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <jsp:useBean id="p" class="dao.VoucherDAO" scope="request"></jsp:useBean>
+        <jsp:useBean id="p" class="dao.impl.VoucherDAOImpl" scope="request"></jsp:useBean>
         </head>
     </head>
     <body style=" background-color: gray;">

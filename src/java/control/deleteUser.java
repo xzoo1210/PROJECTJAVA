@@ -6,6 +6,7 @@
 package control;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,7 +52,7 @@ public class deleteUser extends HttpServlet {
         }
             String sid = request.getParameter("id");
             int id = Integer.parseInt(sid);
-            CustomerDAO cdb = new CustomerDAO();
+            CustomerDAO cdb = new CustomerDAOImpl();
             cdb.DeleteUser(sid);
             response.sendRedirect("manageAccount.jsp");
         }

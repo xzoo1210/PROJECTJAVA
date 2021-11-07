@@ -6,8 +6,6 @@
 package control;
 
 import dao.CustomerDAO;
-import dao.DAO;
-import dao.orderDAO;
 import entity.Customer;
 import entity.Product;
 import java.io.IOException;
@@ -22,6 +20,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import dao.OrderDAO;
+import dao.ProductDAO;
+import dao.impl.CustomerDAOImpl;
+import dao.impl.OrderDAOImpl;
+import dao.impl.ProductDAOImpl;
 
 /**
  *
@@ -49,7 +52,7 @@ public class OrderControl extends HttpServlet {
             if (session.getAttribute("customer") != null) {
                 //insert to infor user
                 Customer c = (Customer) session.getAttribute("customer");
-                CustomerDAO cd = new CustomerDAO();
+                CustomerDAO cd = new CustomerDAOImpl();
                 String name = request.getParameter("fullName").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
@@ -59,13 +62,13 @@ public class OrderControl extends HttpServlet {
                 out.println("<p> Phone number :" + phone + "</p>");
                 out.println("</div><br><br>");
                 // add order
-                orderDAO order = new orderDAO();
+                OrderDAO order = new OrderDAOImpl();
                 int orderID = order.getLastOrderID() + 1;
                 float finalPrice = Float.parseFloat(session.getAttribute("finalPrice").toString().trim());
                 order.addOrder(orderID, c.getId(), finalPrice);
                 Cookie arr[] = request.getCookies();
                 List<Product> list = new ArrayList<>();
-                DAO dao = new DAO();
+                ProductDAO dao = new ProductDAOImpl();
                 for (Cookie o : arr) {//get list product
                     if (o.getName().equals("id")) {
                         String txt[] = o.getValue().split(",");

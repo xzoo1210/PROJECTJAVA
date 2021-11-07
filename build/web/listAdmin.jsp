@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <link href="css/cssAdd.css" rel="stylesheet" type="text/css"/>
-        <jsp:useBean id="p" class="dao.DAO" scope="request"></jsp:useBean>
+        <jsp:useBean id="p" class="dao.impl.ProductDAOImpl" scope="request"></jsp:useBean>
         </head>
         <body>
         <c:if test="${sessionScope.customer==null||sessionScope.customer.authority!=1}">

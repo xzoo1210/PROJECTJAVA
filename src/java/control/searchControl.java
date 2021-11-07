@@ -5,7 +5,8 @@
  */
 package control;
 
-import dao.DAO;
+import dao.ProductDAO;
+import dao.impl.ProductDAOImpl;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,7 +62,7 @@ public class searchControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        DAO dao = new DAO();
+        ProductDAO dao = new ProductDAOImpl();
         String name = request.getParameter("nameSearch");
         String x = name;
         ArrayList<Product> list = dao.getProductByName(name);

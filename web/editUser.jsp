@@ -4,10 +4,11 @@
     Author     : Dell Inc
 --%>
 
+<%@page import="dao.impl.CustomerDAOImpl"%>
 <%@page import="dao.CustomerDAO"%>
 <%@page import="entity.Customer"%>
 <%@page import="entity.Product"%>
-<%@page import="dao.DAO"%>
+<%@page import="dao.impl.ProductDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
         <title>JSP Page</title>
         <link href="css/cssAdd.css" rel="stylesheet" type="text/css"/>
     </head>
-    <%CustomerDAO cdb = new CustomerDAO();
+    <%CustomerDAO cdb = new CustomerDAOImpl();
         String id = (String) request.getParameter("id");
         Customer c = (Customer) cdb.getUserByID(id);%>
     <body>
@@ -41,18 +42,17 @@
         <form action="editUser" method="post" id="join-us">
             <div class="fields">
                 <br>
-
+                <span>
+                    <input placeholder="id" id="id" type="text" readonly="" required="" name="id" value="<%=c.getId()%>"/>
+                </span>
                 <br>
+                <input placeholder="password" id="pass" type="text" readonly="" style="display: none;" required="" name="pass" value="<%=c.getPassword()%>"/>
                 <span>
                     <input placeholder="Uname" type="text"  readonly="" required="" name="name" value="<%=c.getUsername()%>"/>
                 </span>
                 <br>
                 <span>
-                    <input placeholder="PASS" type="text" readonly="" required="" name="pass"/>
-                </span>
-                <br />
-                <span>
-                    <input placeholder="re passsword" type="text" required=""   name="authority"/>
+                    <input placeholder="authority" type="text" required=""   name="authority"/>
                 </span>
                 <br />
 
